@@ -1,0 +1,6 @@
+access_key = ""
+secret_key = ""
+region = "us-east-1"
+dbname = "odoodb"
+dbpassword = "odoodbpassword"
+dbuser = "odoodbuser"

@@ -1,5 +1,5 @@
 provider "aws" {
-  region                  = "us-east-1"
-  shared_credentials_file = "/Users/dagisus/.aws/credentials"
-  profile                 = "trujillo"
+  access_key = "${var.access_key}"
+  secret_key = "${var.secret_key}"
+  region     = "${var.region}"
 }
