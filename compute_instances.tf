@@ -21,7 +21,7 @@ resource "aws_instance" "odoo" {
   availability_zone               = "us-east-1a"
   vpc_security_group_ids          = ["${aws_security_group.odooSG_terra.id}"]
   subnet_id                       = "${aws_subnet.main_terra_1.id}"
-  key_name                        = "hosts_key"
+  key_name                        = "${var.ssh_key}"
   associate_public_ip_address     = true
   instance_initiated_shutdown_behavior = "stop"
 
@@ -44,7 +44,7 @@ resource "aws_instance" "odoo" {
       host = "${self.public_dns}"
       type = "ssh"
       user = "ubuntu"
-      private_key = "${file("/Users/dagisus/Dropbox/PC_CM/ssh/pem/hosts_key.pem")}"
+      private_key = "${file(${var.ssh_key_path})}"
     }
   }
 
