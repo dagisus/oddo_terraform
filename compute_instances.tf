@@ -44,9 +44,10 @@ resource "aws_instance" "odoo" {
       host = "${self.public_dns}"
       type = "ssh"
       user = "ubuntu"
-      private_key = "${file(${var.ssh_key_path})}"
+      private_key = "${file("${var.ssh_key_path}")}"
     }
   }
+
 
   provisioner "remote-exec" {
     inline = [
@@ -63,7 +64,7 @@ resource "aws_instance" "odoo" {
       host     = "${self.public_dns}"
       type     = "ssh"
       user     = "ubuntu"
-      private_key = "${file("/Users/dagisus/Dropbox/PC_CM/ssh/pem/hosts_key.pem")}"
+      private_key = "${file("${var.ssh_key_path}")}"
     }
   }
 }
