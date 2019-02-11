@@ -57,7 +57,7 @@ resource "aws_instance" "odoo" {
       "echo \"db_port = ${aws_db_instance.odooDB_terra.port}\" >> /home/ubuntu/odoo.conf",
       "echo \"db_user = ${aws_db_instance.odooDB_terra.username}\" >> /home/ubuntu/odoo.conf",
       "echo \"db_password = ${aws_db_instance.odooDB_terra.password}\" >> /home/ubuntu/odoo.conf",
-      "sudo sh /home/ubuntu/install_odoo.sh",
+      "sudo sh /home/ubuntu/install_odoo.sh ${var.odooversion}",
       ]
 
     connection {
@@ -71,4 +71,8 @@ resource "aws_instance" "odoo" {
 
 output "server_domain" {
   value = "${aws_instance.odoo.public_dns}"
+}
+
+output "ssh_command" {
+  value = "ssh -i ${var.ssh_key_path} ubuntu@${aws_instance.odoo.public_dns}"
 }

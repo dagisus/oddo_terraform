@@ -1,0 +1,8 @@
+access_key = "AKIAJAIIYKYCJQ3EPBKQ"
+secret_key = "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"
+region = "us-east-1"
+dbname = "odoodb"
+dbpassword = "odoodbpassword"
+dbuser = "odoodbuser"
+ssh_key = "si22"
+ssh_key_path = "/Users/dagisus/Dropbox/PC_CM/ssh/pem/si22.pem"

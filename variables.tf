@@ -3,8 +3,9 @@ variable "secret_key" {}
 variable "region" {
   default = "us-east-1"
 }
-variable "dbname" {}
 variable "dbuser" {}
 variable "dbpassword" {}
+variable "dbversion" {}
 variable "ssh_key" {}
 variable "ssh_key_path" {}
+variable "odooversion" {}
