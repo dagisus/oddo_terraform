@@ -1,4 +1,4 @@
-# oddo11_terraform
+# oddo_terraform
 Terraform for Odoo
 
 you need previously to have an active AWS account and programatic access with an admin user (key and secret) also you need to create a EC2 ssh key pair and have both key-pair name and local path of pem file.
