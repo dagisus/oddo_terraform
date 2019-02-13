@@ -20,3 +20,11 @@ resource "aws_db_instance" "odooDB_terra" {
 output "db_address" {
   value = "${aws_db_instance.odooDB_terra.address}"
 }
+
+output "db_user" {
+  value = "${var.dbuser}"
+}
+
+output "db_password" {
+  value = "${var.dbpassword}"
+}

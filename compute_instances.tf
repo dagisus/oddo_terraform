@@ -76,3 +76,7 @@ output "server_domain" {
 output "ssh_command" {
   value = "ssh -i ${var.ssh_key_path} ubuntu@${aws_instance.odoo.public_dns}"
 }
+
+output "web_url" {
+  value = "http://${aws_instance.odoo.public_dns}"
+}
