@@ -31,5 +31,5 @@ variable "ssh_key_path" {
 }
 
 variable "odooversion" {
-  description = "Odoo version to install (it can be 11.0 or 12.0)"
+  description = "Odoo version to install (it can be 11.0 or 12.0 or 13.0)"
 }
