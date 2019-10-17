@@ -16,7 +16,7 @@ data "aws_ami" "ubuntu" {
 
 resource "aws_instance" "odoo" {
   ami                                  = data.aws_ami.ubuntu.id
-  instance_type                        = "t2.micro"
+  instance_type                        = var.ec2_instance_type
   iam_instance_profile                 = aws_iam_instance_profile.EC2profilerole_terra.name
   availability_zone                    = "us-east-1a"
   vpc_security_group_ids               = [aws_security_group.odooSG_terra.id]

@@ -19,7 +19,7 @@ variable "dbpassword" {
 }
 
 variable "dbversion" {
-  description = "Database engine version (9.6 recomended)"
+  description = "Database engine version"
 }
 
 variable "ssh_key" {
@@ -34,3 +34,12 @@ variable "odooversion" {
   description = "Odoo version to install (it can be 11.0 or 12.0 or 13.0)"
 }
 
+variable "rds_instance_type" {
+  description = "RDS db instance type, use db.t2.micro to stay in free tier"
+  default = "db.t2.micro"
+}
+
+variable "ec2_instance_type" {
+  description = "EC2 instance type, use t2.micro to stay in free tier"
+  default = "t2.micro"
+}
