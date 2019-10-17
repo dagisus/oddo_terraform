@@ -16,11 +16,12 @@ resource "aws_iam_role" "EC2role_terra" {
   ]
 }
 EOF
+
 }
 
 resource "aws_iam_role_policy" "EC2policy_terra" {
   name = "test_policy"
-  role = "${aws_iam_role.EC2role_terra.id}"
+  role = aws_iam_role.EC2role_terra.id
 
   policy = <<EOF
 {
@@ -36,9 +37,11 @@ resource "aws_iam_role_policy" "EC2policy_terra" {
   ]
 }
 EOF
+
 }
 
 resource "aws_iam_instance_profile" "EC2profilerole_terra" {
-  name  = "EC2profilerole"
-  role = "${aws_iam_role.EC2role_terra.name}"
+  name = "EC2profilerole"
+  role = aws_iam_role.EC2role_terra.name
 }
+
