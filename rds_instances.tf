@@ -4,6 +4,7 @@ resource "aws_db_instance" "odooDB_terra" {
   engine               = "postgres"
   engine_version       = var.dbversion
   instance_class       = var.rds_instance_type
+  availability_zone    = "us-east-1a"
   name                 = "postgres"
   username             = var.dbuser
   password             = var.dbpassword
