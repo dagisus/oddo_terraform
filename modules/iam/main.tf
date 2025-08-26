@@ -1,7 +1,7 @@
-resource "aws_iam_role" "EC2role_terra" {
+resource "aws_iam_role" "ec2_role" {
   name = "EC2role_terra"
 
-  assume_role_policy = <<EOF
+  assume_role_policy = <<POLICY
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -15,15 +15,14 @@ resource "aws_iam_role" "EC2role_terra" {
     }
   ]
 }
-EOF
-
+POLICY
 }
 
-resource "aws_iam_role_policy" "EC2policy_terra" {
-  name = "test_policy"
-  role = aws_iam_role.EC2role_terra.id
+resource "aws_iam_role_policy" "ec2_policy" {
+  name = "ec2_describe"
+  role = aws_iam_role.ec2_role.id
 
-  policy = <<EOF
+  policy = <<POLICY
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -36,12 +35,10 @@ resource "aws_iam_role_policy" "EC2policy_terra" {
     }
   ]
 }
-EOF
-
+POLICY
 }
 
-resource "aws_iam_instance_profile" "EC2profilerole_terra" {
+resource "aws_iam_instance_profile" "ec2_profile" {
   name = "EC2profilerole"
-  role = aws_iam_role.EC2role_terra.name
+  role = aws_iam_role.ec2_role.name
 }
-

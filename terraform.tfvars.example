@@ -1,11 +1,19 @@
 access_key = ""
 secret_key = ""
-region = "us-east-1"
+region     = "us-east-1"
+
+dbuser     = "odoodbuser"
 dbpassword = "odoodbpassword"
-dbuser = "odoodbuser"
-dbversion = "9.6"
-odooversion = "13.0"
-ssh_key = "<ssh key name>"
+db_engine_version = "15.3"
+odoo_version = "17.0"
+
+ssh_key      = "<ssh key name>"
 ssh_key_path = "/home/ubuntu/.ssh/key.pem"
-ec2_instance_type = "t2.micro"
-rds_instance_type = "db.t2.micro"
+
+ec2_instance_type = "t4g.medium"
+rds_instance_type = "db.t4g.medium"
+
+# Optional: use existing networking
+# existing_vpc_id          = "vpc-123456"
+# existing_public_subnet_id = "subnet-123456"
+# existing_db_subnet_ids   = ["subnet-234567", "subnet-345678"]
