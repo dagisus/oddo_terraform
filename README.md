@@ -1,28 +1,56 @@
 # oddo_terraform
-### Build an Odoo platform on AWS using Terraform
 
-This script will create a simple Odoo distributed infrastructure using AWS EC2 for the app server and RDS for the DB. it will also create roles, VPCs and networking structure to support the environment. 
+Provision an Odoo platform on AWS using Packer and Terraform. The project builds a versioned AMI with Odoo pre-installed, stores database credentials in AWS Secrets Manager, and wires everything together with Terraform modules.
 
-Everything created by this script will default *AWS* *free* *tier* resources. This behavior can me managed by the `variables.tf` defaults of by using the `terraform.tfvars.example`  
+## Features
 
-By default the app server will provide access to port 80, 8069 and 22, is highly recommended to change this settings to comply with desired security policies.
+- Packer template to build an Odoo AMI with version tags
+- Launch template that always uses the latest AMI for a given Odoo version
+- Aurora PostgreSQL database with credentials stored in Secrets Manager
+- Optional deployment into an existing VPC
+- Example `terraform.tfvars` for quick configuration
 
-The Database server is not publicly accessible by default and its security group will only alow access to port 5432 to the app server's security group. If you need to access the DB directly, is recomended to do so via ssh tunnel from the app server or implementing a bastion in the VPC. 
+## Prerequisites
 
-### Install and Setup
+- An AWS account with permissions for EC2, RDS, IAM, VPC, Secrets Manager and AMI creation
+- Packer and Terraform installed locally
+- An existing SSH key pair in AWS
 
-You need previously to have an active AWS account and programmatic access to an admin user for ease of use (if not posible you'll need write permisions for EC2, RDS, IAM and VPC) also you need to create a EC2 ssh key pair and have both key-pair name and local path of pem file.
+## Build the Odoo AMI
 
-Install terraform according to your platform
+```bash
+cd packer
+packer init .
+packer build -var 'odoo_version=17.0' -var 'ami_version=v1' odoo.pkr.hcl
+```
 
-Clone this repository and go to the folder
+The build tags the AMI with `odoo_version` and `ami_version`. Terraform will automatically pick the latest AMI matching the requested `odoo_version`.
 
-Execute `terraform init` to initialize folder
+## Deploy with Terraform
 
-Execute `terraform apply` to provision a new odoo service in AWS. during the application, terraform will prompt for all the necessary variables including AWS access credentials.
+1. Copy `terraform.tfvars.example` to `terraform.tfvars` and fill in the required values.
+2. Run `terraform init` to initialize the project.
+3. Run `terraform apply` to create the infrastructure.
+4. Access Odoo at the `web_url` output or connect with the `ssh_command` output.
 
-If you want to use a parameter file to avoid build prompts, create a new `terraform.tfvars` using the `terraform.tfvars.example` template, is very important to add the desired *odoo* and *postgres* version in the variables as well as the *ssh key path* and *name*; the ssh-key name and path values don't have a default setting. 
+### Using an Existing VPC
 
-At the end, terraform will output the db endpoint, web-app server public domain and a sample string of the ssh command to the web-app server.
+Provide these values in `terraform.tfvars` to deploy into an existing network:
 
-Is recommended to safe the terraform state file at the end of the `terraform apply` for future modifications and/or resource deletion.
+```hcl
+existing_vpc_id          = "vpc-123456"
+existing_public_subnet_id = "subnet-123456"
+existing_db_subnet_ids   = ["subnet-234567", "subnet-345678"]
+```
+
+When omitted, a new VPC and subnets are created automatically.
+
+## Cleanup
+
+To remove all resources created by this project run:
+
+```bash
+terraform destroy
+```
+
+Ensure you retain the Terraform state file if you plan to modify or destroy resources later.
